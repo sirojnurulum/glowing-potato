@@ -116,6 +116,7 @@ func initRepository(db *db.DB) *repository.RepositoryCtx {
 	orderProductRepository := order_products.NewOrderProductRepository(db)
 	orderPaymentMethodsRepository := order_payment_methods.NewOrderPaymentMethodsRepository(db)
 	return &repository.RepositoryCtx{
+		DB:                            db,
 		OrdersRepository:              ordersRepository,
 		OrderProductRepository:        orderProductRepository,
 		OrderPaymentMethodsRepository: orderPaymentMethodsRepository,

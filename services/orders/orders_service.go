@@ -2,6 +2,7 @@ package orders
 
 import (
 	"context"
+	"fmt"
 	"glowing-potato/infra/context/repository"
 	"glowing-potato/objects"
 )
@@ -13,6 +14,8 @@ type ordersService struct {
 func (o ordersService) CreateOrder(ctx context.Context, order objects.CreateOrder) error {
 	tx, err := o.DB.Master().BeginTx(ctx, nil)
 	if err != nil {
+		fmt.Println("errornya")
+		fmt.Println(err.Error())
 		return err
 	}
 	//create order

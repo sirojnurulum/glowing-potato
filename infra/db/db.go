@@ -3,15 +3,14 @@ package db
 import (
 	"context"
 	"database/sql"
+	"errors"
 	"github.com/jmoiron/sqlx"
+	_ "github.com/lib/pq"
 	"glowing-potato/config"
-	"glowing-potato/infra/errors"
 	"log"
 	"sync"
 	"sync/atomic"
 	"time"
-
-	_ "github.com/lib/pq"
 )
 
 // DB logical wrapper for database object
@@ -45,6 +44,7 @@ func Open(dbSetting *config.DBConfig) (*DB, error) {
 	if dbSetting == nil {
 		return nil, errors.New("database setting is required")
 	}
+
 	if dbSetting.Name == "" {
 		return nil, errors.New("database driver name should not empty")
 	}
@@ -55,6 +55,7 @@ func Open(dbSetting *config.DBConfig) (*DB, error) {
 		driver: dbSetting.Name,
 		dbs:    make([]*sql.DB, len(dsns)),
 	}
+
 	err := scatter(len(db.dbs), func(idx int) error {
 		dbConn, err := sql.Open(dbSetting.Name, dsns[idx])
 		if err != nil {
@@ -74,6 +75,7 @@ func Open(dbSetting *config.DBConfig) (*DB, error) {
 	}
 
 	log.Printf("success connect to database %s", dbSetting.Host)
+
 	return db, nil
 }
 
