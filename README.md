@@ -3,6 +3,7 @@
 # Running Project
 
 ## Setup Database
+- the database used is PostgreSQL latest version
 - create database called glowing_potato
 - go to root project directory
 - open Makefile
