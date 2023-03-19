@@ -49,5 +49,11 @@ func (o ordersService) CreateOrder(ctx context.Context, order objects.CreateOrde
 		_ = tx.Rollback()
 		return err
 	}
+
+	err = tx.Commit()
+	if err != nil {
+		_ = tx.Rollback()
+		return err
+	}
 	return nil
 }
