@@ -1,0 +1,8 @@
+.env.yml
+.idea/
+gin-bin
+# exclude everything
+temp/*
+
+# exception to the rule
+!temp/.gitkeep
